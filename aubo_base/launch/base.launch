@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_type" default="i5"/>
+  <arg name="pub_description" default="true"/>
+
+  <arg name="robot_ip" default="192.168.3.10"/>
+  <arg name="robot_port" default="9090"/>
+  <arg name="max_joint_vel" default="0.1"/> <!-- rad/s -->
+  <arg name="max_joint_acc" default="0.2"/> <!-- rad/s^2 -->
+
+  <group if="$(arg pub_description)">
+    <arg name="model" default="$(find xacro)/xacro --inorder $(find aubo_description)/urdf/aubo_$(arg robot_type).urdf"/>
+    <param name="robot_description" command="$(arg model)"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  </group>
+
+  <!-- aubo harware driver -->
+  <node pkg="aubo_base" type="aubo_base_node" name="aubo_base_node" output="screen">
+    <param name="robot_ip"      type="str"  value="$(arg robot_ip)"/>
+    <param name="robot_port"    type="int"  value="$(arg robot_port)"/>
+    <param name="max_joint_vel"   type="double" value="$(arg max_joint_vel)"/>
+    <param name="max_joint_acc"   type="double" value="$(arg max_joint_acc)"/>
+  </node>
+
+  <!-- controller parameters -->
+  <include file="$(find aubo_control)/launch/aubo_control.launch">
+    <arg name="robot_type" value="$(arg robot_type)"/>
+  </include>
+
+</launch>

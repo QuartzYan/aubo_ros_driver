@@ -1,0 +1,7 @@
+# Tool Dynamics Param
+geometry_msgs/Inertia inertia
+
+# Tool Kinematics Param
+geometry_msgs/Transform pose
+-----------------------
+string result
