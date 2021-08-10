@@ -1,5 +1,5 @@
 controller_list:
-  - name: fake_aubi_i5_controller
+  - name: fake_aubo_i5_controller
     joints:
       - shoulder_joint
       - upperArm_joint
@@ -8,5 +8,5 @@ controller_list:
       - wrist2_joint
       - wrist3_joint
 initial:  # Define initial robot poses.
-  - group: aubi_i5
+  - group: aubo_i5
     pose: home
